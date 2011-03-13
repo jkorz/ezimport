@@ -11,14 +11,13 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "ezimport"
   gem.homepage = "http://github.com/jkorz/ezimport"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Easy XML Import/Export for Rails/ActiveRecord}
+  gem.description = %Q{Provides EzImport.import(modelname) and EzImport.export(modelname) for ActiveRecord}
   gem.email = "'trogdor33@gmail.com'"
-  gem.authors = ["'jkorz'"]
+  gem.authors = ["'Joe Korzeniewski'"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
