@@ -1,7 +1,7 @@
 module EzImport
 	
-	Models = []
-	XMLPath = "db/ezimport"
+	Models = [] unless defined? Models
+	XMLPath = "db/ezimport" unless defined? XMLPath
 	
 	def self.export(model_name)
 		model_name, model = self.get_model(model_name)
