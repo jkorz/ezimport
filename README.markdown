@@ -1,6 +1,8 @@
-# EzImport: Easy XML import/export from ActiveRecord
+# EzImport: Easy XML Import and Export From ActiveRecord
 
-A plugin for rails that allows easy exporting/importing of XML files for your models.
+Have you ever been irritated with keeping ActiveRecord models consistent across different developers, but didn't want to waste all the time writing fixtures? Sick of making changes to the database and having to make those changes to all your fixtures again? Well, sicken yourself no further.
+
+EzImport allows you to export and import data from models with no configuration other than specifying what models you want it to work with. It even keeps ids consistent!
 
 ## Installation
 
@@ -42,6 +44,6 @@ In the event you'd like to write a separate rake task that only exports a certai
 
 ## Copyright
 
-Copyright (c) 2011 'Joe Korzeniewski'. See LICENSE.txt for
+Copyright (c) 2011 Joe Korzeniewski. See LICENSE.txt for
 further details.
 
