@@ -1,8 +1,17 @@
 module EzImport
 	
+	Models = []
+	XMLPath = "db/ezimport"
+	
 	def self.export(model_name)
-		model = eval(model_name)
-		File.open("db/seed_data/#{model.underscore.pluralize}.xml", 'w') {|f| f << model.all.to_xml}
+		model_name, model = self.get_model(model_name)
+		unless File.directory?(XMLPath)
+			Dir.mkdir(XMLPath)
+			puts "create #{XMLPath}"
+		end
+		filepath = "#{XMLPath}/#{model_name.underscore.pluralize}.xml"
+		File.open(filepath, 'w') {|f| f << model.all.to_xml}
+		puts "write     #{filepath}"
 	end
 	
 	def self.get_model(model_name)
@@ -15,7 +24,9 @@ module EzImport
 	def self.import(model_name)
 		model_name, model = self.get_model(model_name)
 		model.delete_all
-		Hpricot(File.read("db/seed_data/#{model_name.pluralize}.xml")).search(model_name.gsub('_', '-')).each do |record|
+		puts "\n\n"
+		puts "Load #{model_name.pluralize}.xml"
+		Hpricot(File.read("#{XMLPath}/#{model_name.pluralize}.xml")).search(model_name.gsub('_', '-')).each do |record|
 			model.new do |new_instance|
 				model.columns.each do |col|
 					n = col.name.gsub('_', '-')
@@ -26,4 +37,6 @@ module EzImport
 			puts "Added #{model_name}: #{(record/:name).innerHTML}" unless (record/:name).innerHTML.blank?
 		end
 	end
+	
+
 end
