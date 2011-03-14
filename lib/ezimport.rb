@@ -1,24 +1,27 @@
-module EzImport
+class EzImport
 	
-	Models = [] unless defined? Models
-	XMLPath = "db/ezimport" unless defined? XMLPath
+	@@models = []
+	@@xmlpath = "db/ezimport"
+	
+	cattr_accessor :models
+	cattr_accessor :xmlpath
 	
 	def self.export(model_name)
-		model_name, model = self.get_model(model_name)
-		unless File.directory?(XMLPath)
-			Dir.mkdir(XMLPath)
-			puts "create #{XMLPath}"
+		model_name, model_obj = self.get_model(model_name)
+		unless File.directory?(@@xmlpath)
+			Dir.mkdir(@@xmlpath)
+			puts "create #{@@xmlpath}"
 		end
-		filepath = "#{XMLPath}/#{model_name.underscore.pluralize}.xml"
-		File.open(filepath, 'w') {|f| f << model.all.to_xml}
+		filepath = "#{@@xmlpath}/#{model_name.underscore.pluralize}.xml"
+		File.open(filepath, 'w') {|f| f << model_obj.all.to_xml}
 		puts "write     #{filepath}"
 	end
 	
 	def self.get_model(model_name)
 		Dir.glob("#{RAILS_ROOT}/app/models/**/*rb").each{|m| require_or_load m }
-		models = {}
-		ActiveRecord::Base.subclasses.each {|m| models[m.to_s.downcase] = m}
-		[models[model_name.downcase].to_s.underscore, models[model_name.downcase]]
+		model_list = {}
+		ActiveRecord::Base.subclasses.each {|m| model_list[m.to_s.downcase] = m}
+		[model_list[model_name.downcase].to_s.underscore, model_list[model_name.downcase]]
 	end
 	
 	def self.import(model_name)
@@ -26,7 +29,7 @@ module EzImport
 		model.delete_all
 		puts "\n\n"
 		puts "Load #{model_name.pluralize}.xml"
-		Hpricot(File.read("#{XMLPath}/#{model_name.pluralize}.xml")).search(model_name.gsub('_', '-')).each do |record|
+		Hpricot(File.read("#{@@xmlpath}/#{model_name.pluralize}.xml")).search(model_name.gsub('_', '-')).each do |record|
 			model.new do |new_instance|
 				model.columns.each do |col|
 					n = col.name.gsub('_', '-')

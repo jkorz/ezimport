@@ -12,11 +12,11 @@ Unfortunately I haven't packaged this into a gem yet. Right now there is no good
 
 Configuration is done in config/initializers/ezimport.rb. If for example, you wanted to export your User and Privilege models, you would enter:
 
-	EzImport::Models = ['User', 'Privilege']
+	EzImport.models = ['User', 'Privilege']
 	
 There is also an option to set the relative export path of your XML files.
 
-	EzImport::XMLPath = "db/ezimport" #default 
+	EzImport.xmlpath = "db/ezimport" #default 
 	
 To export your models:
 
