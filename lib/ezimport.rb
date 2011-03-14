@@ -29,7 +29,9 @@ class EzImport
 		model.delete_all
 		puts "\n\n"
 		puts "Load #{model_name.pluralize}.xml"
-		Hpricot(File.read("#{@@xmlpath}/#{model_name.pluralize}.xml")).search(model_name.gsub('_', '-')).each do |record|
+		file_content = File.read("#{@@xmlpath}/#{model_name.pluralize}.xml")
+		file_content.gsub!("&amp;", "&")
+		Hpricot(file_content).search(model_name.gsub('_', '-')).each do |record|
 			model.new do |new_instance|
 				model.columns.each do |col|
 					n = col.name.gsub('_', '-')
@@ -38,6 +40,10 @@ class EzImport
 				new_instance.save
 			end
 			puts "Added #{model_name}: #{(record/:name).innerHTML}" unless (record/:name).innerHTML.blank?
+		end
+		if model.methods.include?(:after_ezimport)
+			puts "Running #{model_name}.after_ezimport..."
+			model.after_ezimport
 		end
 	end
 	

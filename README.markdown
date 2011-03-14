@@ -42,6 +42,18 @@ In the event you'd like to write a separate rake task that only exports a certai
 		end
 	end
 
+## Custom callbacks
+
+There may be a situation where you want to do something after an import in order to fix it in the database. A good example of this is when you are importing something with a counter cache. The counter cache gets imported and then incremented for each record after it. This is no good. The solution is to define a callback class method in your model. It must be named after_ezimport.
+
+	def self.after_ezimport
+  	Post.all.each do |p|
+  		Post.reset_counters(p.id, :comments) 
+  	end
+  end
+
+
+
 ## Copyright
 
 Copyright (c) 2011 Joe Korzeniewski. See LICENSE.txt for
