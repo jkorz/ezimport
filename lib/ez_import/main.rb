@@ -11,7 +11,7 @@ module EzImport
 
     def self.export(model_name_original)
       model_name, model_obj = self.get_model(model_name_original)
-      raise "Model '#{model_name_original}' not found" if model.nil?
+      raise "Model '#{model_name_original}' not found" if model_obj.nil?
       unless File.directory?(@@xmlpath)
         Dir.mkdir(@@xmlpath)
         puts "create #{@@xmlpath}"
