@@ -5,7 +5,7 @@ module EzImport
     railtie_name :ezimport
 
     rake_tasks do
-      load "tasks/my_plugin.rake"
+      load "tasks/ez_import.rake"
     end
   end
 end
