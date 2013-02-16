@@ -4,19 +4,19 @@ require "ez_import/railtie.rb"
 
 module EzImport
 
-  def models
+  def self.models
     Main.models
   end
 
-  def models=(m)
+  def self.models=(m)
     Main.models = m
   end
 
-  def xmlpath
+  def self.xmlpath
     Main.xmlpath
   end
 
-  def xmlpath=(p)
+  def self.xmlpath=(p)
     Main.xmlpath = p
   end
 
