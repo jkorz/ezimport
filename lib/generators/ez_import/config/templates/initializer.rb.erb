@@ -1,0 +1,15 @@
+#define the models that will be imported/exported with ez_import:all and ez_export:all
+
+#Models: this is an array of model names used to import/export all models
+# YOU MUST UNCOMMENT THIS AND CHANGE IT FOR ez_import:all AND ez_export:all TO FUNCTION!
+<% if @models.length > 0 -%>
+<%= "EzImport.models = #{@models}" -%>
+<% else -%>
+#EzImport.models = ['ModelName1', 'ModelName2']
+<% end -%>
+
+
+#XML Path: this is where the xml files will be stored
+#Uncomment the line below to customize
+
+# EzImport.xmlpath = "db/ez_import"
