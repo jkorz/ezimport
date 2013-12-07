@@ -46,7 +46,7 @@ module EzImport
             n = col.name.gsub('_', '-')
             eval('new_instance.' + col.name + " = (record/n).innerHTML")
           end
-          new_instance.save
+          new_instance.save( validate: false )
         end
         count += 1
       end
